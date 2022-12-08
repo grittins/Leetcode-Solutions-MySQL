@@ -58,6 +58,7 @@ SET sex =
     END;
 ```
 
+### 196 Delete Duplicate Emails
 ```MySQL
 # Please write a DELETE statement and DO NOT write a SELECT statement.
 DELETE p1
