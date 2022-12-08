@@ -63,8 +63,7 @@ SET sex =
 # Please write a DELETE statement and DO NOT write a SELECT statement.
 DELETE p1
 FROM Person AS p1, Person AS p2
-WHERE p1.email = p2.email
-AND p1.id > p2.id;
+WHERE p1.email = p2.email AND p1.id > p2.id;
 ```
 
 
