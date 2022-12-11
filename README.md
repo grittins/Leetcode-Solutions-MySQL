@@ -95,5 +95,75 @@ SELECT patient_id, patient_name, conditions
 FROM Patients
 WHERE conditions LIKE '% DIAB1%' OR conditions LIKE 'DIAB1%';
 ```
+## DAY 4
 
+### 1965 Employees With Missing Information
+```MySQL
+SELECT temp.employee_id
+FROM
+    (SELECT * FROM Employees LEFT JOIN Salaries USING(employee_id)
+    UNION
+    SELECT * FROM Employees RIGHT JOIN Salaries USING(employee_id)
+    ) AS temp
+WHERE temp.name IS NULL OR temp.salary IS NULL
+ORDER BY temp.employee_id;
+```
+### 1795 Rearrange Products Table
+```MySQL
+SELECT product_id, 'store1' AS store, store1 As price
+FROM Products
+WHERE store1 IS NOT NULL
+UNION
+SELECT product_id, 'store2' AS store, store2 As price
+FROM Products
+WHERE store2 IS NOT NULL
+UNION
+SELECT product_id, 'store3' AS store, store3 As price
+FROM Products
+WHERE store3 IS NOT NULL;
+```
+### 608 Tree Node
+```MySQL
+SELECT id, 
+    CASE
+        WHEN p_id IS NULL THEN "Root"
+        WHEN id NOT IN (SELECT DISTINCT p_id FROM Tree WHERE p_id IS NOT NULL) THEN "Leaf"
+        ELSE "Inner"
+    END AS type
+FROM Tree
+ORDER BY id;
+```
+### 176 Second Highest Salary
+```MySQL
+SELECT IFNULL((SELECT DISTINCT salary 
+FROM Employee
+ORDER BY salary DESC LIMIT 1 OFFSET 1), Null) AS SecondHighestSalary;
+```
 
+## DAY 5
+
+### 175 Combine Two Tables
+```MySQL
+SELECT p.firstName, p.lastName, a.city, a.state
+FROM Person AS p
+LEFT JOIN Address AS a
+ON p.personID = a.personID;
+```
+
+### 1581 Customer Who Visited but Did Not Make Any Transactions
+```MySQL
+SELECT v.customer_id, COUNT(v.customer_id) AS count_no_trans
+FROM Visits AS v 
+LEFT JOIN Transactions AS t 
+ON v.visit_id = t.visit_id
+WHERE t.transaction_id IS NULL
+GROUP BY v.customer_id;
+```
+
+### 1148 Article Views I
+```MySQL
+SELECT DISTINCT author_id AS id
+FROM Views
+WHERE author_id = viewer_id
+ORDER BY id;
+```
