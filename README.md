@@ -167,3 +167,25 @@ FROM Views
 WHERE author_id = viewer_id
 ORDER BY id;
 ```
+## DAY 6
+
+### 197 Rising Temperature
+```MySQL
+SELECT w1.id
+FROM Weather AS w1, Weather AS w2 
+WHERE w1.temperature > w2.temperature AND DATEDIFF(w1.recordDate, w2.recordDate) = 1;
+```
+
+### 607 Sales Person
+```MySQL
+SELECT s.name
+FROM SalesPerson AS s
+WHERE s.name NOT IN
+    (SELECT s.name
+    FROM SalesPerson AS s 
+    LEFT JOIN Orders AS o 
+    ON s.sales_id = o.sales_id
+    LEFT JOIN Company AS c 
+    ON c.com_id = o.com_id
+    WHERE c.name = 'RED');
+```
