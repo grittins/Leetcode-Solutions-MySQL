@@ -189,3 +189,27 @@ WHERE s.name NOT IN
     ON c.com_id = o.com_id
     WHERE c.name = 'RED');
 ```
+## DAY 7
+
+### 1141 User Activity for the Past 30 Days I
+```MySQL
+SELECT activity_date AS day, COUNT(DISTINCT user_id) AS active_users
+FROM Activity
+WHERE DATEDIFF('2019-07-27', activity_date) < 30 AND activity_date <= '2019-07-27'
+GROUP BY activity_date;
+```
+### 1693 Daily Leads and Partners
+```MySQL
+SELECT date_id, 
+    make_name, 
+    COUNT(DISTINCT lead_id) AS unique_leads, 
+    COUNT(DISTINCT partner_id) AS unique_partners
+FROM DailySales
+GROUP BY date_id, make_name;
+```
+### 1729 Find Followers Count
+```MySQL
+SELECT user_id, COUNT(DISTINCT follower_id) AS followers_count
+FROM Followers
+GROUP BY user_id;
+```
