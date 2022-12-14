@@ -213,3 +213,35 @@ SELECT user_id, COUNT(DISTINCT follower_id) AS followers_count
 FROM Followers
 GROUP BY user_id;
 ```
+## DAY 8
+
+### 586 Customer Placing the Largest Number of Orders
+```MySQL
+SELECT customer_number
+FROM Orders
+GROUP BY customer_number
+ORDER BY COUNT(customer_number) DESC LIMIT 1;
+```
+
+### 511 Game Play Analysis I
+```MySQL
+SELECT player_id, MIN(event_date) AS first_login
+FROM Activity
+GROUP BY player_id;
+```
+
+### 1890 The Latest Login in 2020
+```MySQL
+SELECT user_id, MAX(time_stamp) AS last_stamp 
+FROM Logins 
+WHERE YEAR(time_stamp) = 2020 
+GROUP BY user_id;
+```
+
+### 1741 Find Total Time Spent by Each Employee
+```MySQL
+SELECT event_day AS day, emp_id, SUM(out_time-in_time) AS total_time
+FROM Employees
+GROUP BY day, emp_id;
+```
+
