@@ -244,4 +244,72 @@ SELECT event_day AS day, emp_id, SUM(out_time-in_time) AS total_time
 FROM Employees
 GROUP BY day, emp_id;
 ```
+## DAY 9
+### 1393 Capital Gain/Loss
+```MySQL
+SELECT stock_name,  SUM(CASE
+                    WHEN operation = 'Sell' THEN price
+                    ELSE -price
+                    END) AS capital_gain_loss
+FROM Stocks
+GROUP BY stock_name;
+```
 
+### 1407 Top Travellers
+```MySQL
+SELECT u.name,  IFNULL(SUM(r.distance), 0) AS travelled_distance
+FROM Users AS u
+LEFT JOIN Rides AS r
+ON u.id = r.user_id
+GROUP BY u.id
+ORDER BY travelled_distance DESC, u.name; 
+```
+
+### 1158 Market Analysis I
+```MySQL
+SELECT u.user_id AS 'buyer_id', 
+        u.join_date AS 'join_date', 
+        COUNT(o.order_id) AS 'orders_in_2019'
+FROM Users AS u 
+LEFT JOIN 
+    (SELECT * FROM Orders WHERE YEAR(order_date) = '2019') AS o
+ON u.user_id = o.buyer_id
+GROUP BY u.user_id;
+```
+
+## DAY 10
+
+### 182 Duplicate Emails
+```MySQL
+SELECT DISTINCT p1.email
+FROM Person AS p1, Person AS p2
+WHERE p1.email = p2.email AND p1.id <> p2.id;
+```
+
+### 1050 Actors and Directors Who Cooperated At Least Three Times
+```MySQL
+SELECT actor_id, director_id
+FROM ActorDirector 
+GROUP BY actor_id, director_id
+HAVING COUNT(actor_id) >= 3;
+```
+### 1587 Bank Account Summary II
+```MySQL
+SELECT u.name, SUM(t.amount) AS balance
+FROM Users AS u
+LEFT JOIN Transactions AS t
+ON u.account = t.account
+GROUP BY u.name
+HAVING balance > 10000;
+```
+### 1084 Sales Analysis III
+```MySQL
+SELECT p.product_id, p.product_name
+FROM Product AS p
+LEFT JOIN Sales AS s
+ON p.product_id = s.product_id
+GROUP BY p.product_id
+HAVING 
+    MIN(s.sale_date) >= '2019-01-01' AND 
+    MAX(s.sale_date) <= '2019-03-31';
+```
